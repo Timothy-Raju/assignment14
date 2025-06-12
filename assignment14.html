@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>assignment14</title>
+    <style>
+        body{
+            background-color: rgba(0,0,0,0.8);
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 500px;
+        }
+        .button1{
+            background-color: transparent;
+            border: 1.5px solid gray;
+            padding: 4px 15px;
+            box-shadow: 1px 1px 1px rgba(0,0,0,0.7);
+            border-bottom: none;
+            border-right: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: 0.15s opacity;
+        }
+        .span1{
+            color: gray;
+            font-weight: 550;
+            margin-right: 0;
+            font-size: 14px;
+        }
+        .span2{
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .button1:hover{
+            opacity: 0.8;
+        }
+
+        .header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .bt2{
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-right: 30px;
+        }
+        .fav-bt{
+            background-color: rgb(47, 233, 152);
+            border: 1px solid white;
+            color: rgb(245, 242, 242,0.9);
+            padding: 5px 15px;
+            border-radius: 10px 0 10px 0;
+            box-shadow: 1px 1px rgba(255,255,255);
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .fav{
+            margin-right: 3px;
+        }
+        #heading1,p{
+            color: white;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+        p{
+            margin-top: 0;
+        }
+        .outer{
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .inner{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+        }
+        #discover{
+            margin-top: 30px;
+            padding: 4px 15px;
+            padding-bottom: 6px;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        #discover:hover{
+            opacity: 0.8;
+        }
+        .arrow{
+            font-size: 20px;
+            font-weight: bold;
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            padding: 0;
+            padding-bottom: 2px;
+            cursor: pointer;
+        }
+        .arrow:hover{
+            opacity: 0.8;
+        }
+        #arrow1{
+            margin-left: 75px;
+        }
+        #arrow2{
+            margin-right: 75px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <button class="button1">
+            <span class="span1">Flick</span>
+            <span class="span2">Finder</span>
+        </button>
+        <div class="menu">
+            <button class="bt2">Home</button>
+            <button class="bt2">Tv Show</button>
+            <button class="bt2">Movie</button>
+            <button class="bt2">Upcoming</button>
+            <button class="fav-bt"><span class="fav">Favourite</span>&#x2661;</button>
+        </div>
+    </div>
+    
+    <hr>
+
+    <div class="outer">
+        <button class="arrow" id="arrow1" onclick="slideLeft();">&lsaquo;</button>
+        <div class="inner">
+            <h1 id="heading1">Bringing the Big Screen To Your Screen</h1>
+            <p>
+                Discover, critique, and celebrate movies
+                <br>
+                withhonest reviews and fresh takes on every film
+            </p>
+            <button id="discover">Discover More..</button>
+        </div>
+        <button class="arrow" id="arrow2" onclick="slideRight();">&rsaquo;</button>
+    </div>
+    <script>
+        // let arr = ['/assignments/cat2.jpg','/assignments/assignment8/gallery1.jpg','/assignments/assignment8/cinema-1.jpg','/assignments/assignment8/cinema-2.jpg'];
+
+        let bg = ['https://images.unsplash.com/photo-1742792223864-26f1c374b63d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D','https://images.unsplash.com/photo-1686075863654-2440a8e0ceb3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D','https://images.unsplash.com/photo-1641605821347-5891c43535b3?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D','https://plus.unsplash.com/premium_photo-1674837819896-3857f60bc381?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D']
+        let i=0;
+        function updateBody(){
+            document.body.style.backgroundImage = `url(${bg[i]})`;
+        }
+        
+        function slideRight(){
+            i = (i+1)%(bg.length);
+            updateBody();
+        }
+        function slideLeft(){
+            if(i===0){
+                i = bg.length-1;
+            }
+            else{
+                i = i-1;
+            }
+            updateBody();
+        }
+
+        setInterval(slideRight,3000);
+        updateBody();
+    </script>
+</body>
+</html>
