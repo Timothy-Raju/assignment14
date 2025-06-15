@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Grechen+Fuemen&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <title>Assignment14b(Movie List)</title>
+    <style>
+
+        .page2{
+            height: 100vh;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .heading{
+            font-family:  caveat;
+            font-size: 50px;
+            color: rgba(255,255,255,0.2);
+            margin: 0;
+            margin-top: 40px;
+        }
+
+        .card{
+            height: 200px;
+            width: 120px;
+            /* padding: 10px; */
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+            text-align: center;
+            color: white;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.8),-1px -1px 2px rgba(255,255,255,0.8); 
+            overflow: auto;
+            cursor: pointer;
+        }
+        .card p{
+            margin: 2px;
+            font-size: 10px;
+        }
+        .card h4{
+            font-size: 12px;  
+            margin: 5px;
+        }
+        .card img{
+            height: 120px;
+            width: 100%;
+        }
+        
+
+        .outer{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #card-container{
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            overflow:auto;
+            height: 220px;
+        }
+
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .pagination button{
+            margin: 0 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: transparent;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.8),-1px -1px 2px rgba(255,255,255,0.8);
+            color: white;
+        }
+
+        .filter{
+            margin: 30px 0;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            /* flex-wrap: wrap; */
+        }
+        
+        .filter button{
+            padding: 5px 20px;
+            font-size: 12px;
+            background-color: transparent;
+            color: white;
+            border: 1.5px solid white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .filter button:hover{
+            opacity: 0.8;
+        }
+        .filter button:active{
+            background-color: white;
+            color: black;
+        }
+
+        #movie-input{
+            width: 200px;
+            background-color: transparent;
+            padding: 6px 20px;
+            margin-bottom: 20px;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.8),-2px -2px 3px rgba(255,255,255,0.8);
+            border: none;
+            border-radius: 15px;
+            outline: none;
+            color: white;
+            font-size: 12px;
+        }
+        #movie-input::placeholder{
+            text-align: center;
+            font-size: 12px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="page2">
+
+        <h1 class="heading">MOVIE LIST</h1>
+
+        <div class="filter">
+            <button onclick="marvelMovie();">Marvel Movie</button>
+            <button onclick="funnyMovie();">Funny Movie</button>
+            <button onclick="animationMovie();">Animation Movie</button>
+            <button onclick="webSeriesMovie();">Web Series Movie</button>
+        </div>
+        <input type="text" placeholder="&#128269;Search here" id="movie-input" onkeydown="getMovies(event)">
+
+        <div class="outer">
+            <!-- <button onclick="loadMovies()">Click and see</button> -->
+            <div id="card-container" > </div>
+            <div class="pagination" id="pagination-controls"></div>
+        </div>
+
+        <!-- <div class="card">
+            <img src='/assignments/cat2.jpg' alt='${movie.Title}'>
+            <h4>Title: ${movie.Title}</h4>
+            <p>Year: ${movie.Year}</p>
+            <p>Type: ${movie.Type}</p>
+        </div> -->
+        
+
+        
+    </div>
+    <script>
+
+        let moviesData = [];
+        let currentPage = 1;
+        const itemsPerPage = 4;
+
+        let movieName = document.getElementById('movie-input').value.trim();
+
+        function marvelMovie(){
+            movieName = 'avengers';
+            loadMovies();
+        }
+
+        function funnyMovie(){
+            movieName = 'funny';
+            loadMovies();
+        }
+
+        function animationMovie(){
+            movieName = 'animation';
+            loadMovies();
+        }
+
+        function webSeriesMovie(){
+            movieName = 'webseries';
+            loadMovies();
+        }
+
+        function loadMovies(){
+            if(movieName === ''){
+                alert("Enter a valid movie name!");
+                return;
+            }
+            fetch(`https://www.omdbapi.com/?s=${movieName }&page=&apikey=d6241bb5`)
+            .then(response =>  response.json())
+            .then(data => {
+                console.log(data);
+                if(data.Response === 'True'){
+                    moviesData = data.Search;
+                    currentPage = 1;
+                    renderPage();
+                    renderPagination();
+                }
+                else{
+                    alert("No movies found!");
+                }
+            })
+            .catch( err =>{
+                console.error("Error in fetching movie data: ",err);
+            })
+        }
+
+        function getMovies(event){
+            movieName = document.getElementById('movie-input').value.trim();
+            if(event.key === 'Enter'){
+                loadMovies();
+            }
+        }
+
+        function renderPage(){
+            const container = document.getElementById('card-container');
+            container.innerHTML = '';
+
+            const start = (currentPage-1)*itemsPerPage;
+            const end = start+itemsPerPage;
+            const currentMovies = moviesData.slice(start,end);
+
+            currentMovies.forEach(movie =>{
+                const card = document.createElement('div');
+                card.className='card';
+                card.innerHTML= `
+                    <img src='${movie.Poster}' alt='${movie.Title} class="poster" ' style='height:120px; width:100%'>
+                    <h4>Title: ${movie.Title}</h4>
+                    <p>Year: ${movie.Year}</p>
+                    <p>Type: ${movie.Type}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderPagination(){
+            const totalPages = Math.ceil(moviesData.length / itemsPerPage);
+            const pagination = document.getElementById('pagination-controls');
+            pagination.innerHTML = '';
+
+            //adding previous button
+            const prev = document.createElement('button');
+            prev.innerText = 'Previous';
+            prev.disabled = currentPage === 1;
+            prev.onclick = () =>{
+                if(currentPage>1){
+                    currentPage--;
+                    renderPage();
+                    renderPagination();
+                }
+            };
+            pagination.appendChild(prev);
+
+            //adding pages
+            for(let i=1; i<=totalPages; i++){
+                const pageBtn = document.createElement('button');
+                pageBtn.innerText=i;
+                if(i === currentPage){
+                    pageBtn.style.fontWeight = 'bold';
+                    pageBtn.style.fontSize = '16px';
+                }
+                pageBtn.onclick = () =>{
+                    currentPage = i;
+                    renderPage();
+                    renderPagination();
+                };
+                pagination.appendChild(pageBtn);
+            }
+
+            //adding next
+
+            const next = document.createElement('button');
+            next.innerText = 'Next';
+            next.disabled = currentPage === totalPages;
+            next.onclick = () =>{
+                if(currentPage<totalPages){
+                    currentPage++;
+                    renderPage();
+                    renderPagination();
+                }
+            };
+            pagination.appendChild(next);
+        }
+
+        
+    </script>
+</body>
+</html>
