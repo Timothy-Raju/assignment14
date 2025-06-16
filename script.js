@@ -202,7 +202,7 @@ function removeColor(){
     circles.style.backgroundColor = '';
 }
 callDynamics();
-// setInterval(turnRight,3000);
+setInterval(turnRight,3000);
 
 
 //faq page
