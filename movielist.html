@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Grechen+Fuemen&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <title>Assignment14b(Movie List)</title>
+
+    <link rel="stylesheet" href="movielist.css">
+  
+</head>
+<body>
+
+    <div class="page1">
+        <div class="header">
+            <button class="button1">
+                <span class="span1">Flick</span>
+                <span class="span2">Finder</span>
+            </button>
+            <div class="menu">
+                <button class="bt2">Home</button>
+                <button class="bt2">Tv Show</button>
+                <button class="bt2">Movie</button>
+                <button class="bt2">Upcoming</button>
+                <button class="fav-bt"><span class="fav">Favourite</span>&#x2661;</button>
+            </div>
+        </div>
+        
+        <hr>
+
+        <div class="outer-page1">
+            <button class="arrow" id="arrow1" onclick="slideLeft();">&lsaquo;</button>
+            <div class="inner-page1">
+                <h1 id="heading1">Bringing the Big Screen To Your Screen</h1>
+                <p>
+                    Discover, critique, and celebrate movies
+                    <br>
+                    withhonest reviews and fresh takes on every film
+                </p>
+                <button id="discover">Discover More..</button>
+            </div>
+            <button class="arrow" id="arrow2" onclick="slideRight();">&rsaquo;</button>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="page2" id="page2">
+
+        <h1 class="heading">MOVIE LIST</h1>
+
+        <div class="filter" id="filter">
+            <button onclick="marvelMovie();">Marvel Movie</button>
+            <button onclick="funnyMovie();">Funny Movie</button>
+            <button onclick="animationMovie();">Animation Movie</button>
+            <button onclick="webSeriesMovie();">Web Series Movie</button>
+        </div>
+        <input type="text" placeholder="&#128269;Search here" id="movie-input" onkeydown="getMovies(event)">
+
+        <div class="outer">
+            <!-- <button onclick="loadMovies()">Click and see</button> -->
+            <div id="card-container"> </div>
+            <div class="pagination" id="pagination-controls"></div>
+        </div> 
+    </div>
+
+    <div class="page3">
+        <div class="page3-div1">
+            <button onclick="turnLeft();">&lsaquo;</button>
+            <button onclick="turnRight();">&rsaquo;</button>
+        </div>
+        <div class="div-page3">
+            <span id="sp1"></span>
+            <span id="sp2"></span>
+            <span id="sp3"></span>
+        </div>
+    </div>
+
+    <div class="page4" id="page4">
+        <h1>FREQUENTLY ASKED QUESTIONS</h1>
+        <div class="faq">
+            <div class="question">
+                <p class="para">1. What is this website about?</p>
+                <button class="plus-button1" onclick="elaborate('1');">+</button>
+            </div>
+            <div class="js-answer1"></div>
+        </div>
+        <div class="faq">
+            <div class="question">
+                <p class="para">2. How are movies rated?</p>
+                <button class="plus-button2" onclick="elaborate('2');">+</button>
+            </div>
+            <div class="js-answer2"></div>
+        </div>
+        <div class="faq">
+            <div class="question">
+                <p class="para">3. Can I submit my own reviews?</p>
+                <button class="plus-button3" onclick="elaborate('3');">+</button>
+            </div>
+            <div class="js-answer3"></div>
+        </div>
+        <div class="faq">
+            <div class="question">
+                <p class="para">4. Is the content on this website free?</p>
+                <button class="plus-button4" onclick="elaborate('4');">+</button>
+            </div>
+            <div class="js-answer4"></div>
+        </div>
+        <div class="faq">
+            <div class="question">
+                <p class="para">5. How do I search for a specific movie?</p>
+                <button class="plus-button5" onclick="elaborate('5');">+</button>
+            </div>
+            <div class="js-answer5"></div>
+        </div>
+    </div>
+
+    <hr style="height: 2px;background-color: white;">
+
+    <footer >
+
+        <div class="footer-in">
+            <div>
+                <p style="opacity: 0.7;cursor: auto;">FlickFinder</p>
+                <a href="#page2">Home</a>
+                <p>About us</p>
+                <p>Contact us</p>
+            </div>
+            <div>
+                <p style="opacity: 0.7;cursor: auto;">Products</p>
+                <a href="#filter">TV Show</a>
+                <a href="#filter">Web Series</a>
+                <a href="#filter">Hollywood</a>
+                <a href="#filter">Bollywood</a>
+            </div>
+            <div>
+                <p  style="opacity: 0.7;cursor: auto;">Resources</p>
+                <a href="#page4">FAQs</a>
+                <a href="#page2">Search Movie</a>
+            </div>
+            <div class="news-letter" >
+                <h2 style="opacity: 0.7;cursor: auto;margin-top: 0;">Newsletter</h2>
+
+                <input type="text" placeholder="mail@pagedone.com" class="mail">
+
+                <p><input type="checkbox" class="checkbox1"><span>I agree with </span><u>Privacy Policy</u><span> and </span><u>Terms and conditions</u></p>
+
+                <button>
+                    Send
+                </button>
+
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="facebook1.jpg" alt="fb" style="background-color: transparent;">
+            <img src="instagram.jpg" alt="insta">
+            <img src="x.jpg" alt="x">
+            <img src="youtube.jpg" alt="youtube">
+        </div>
+
+        <p class="end">&copy;FlickFinder 2024, All rights reserved. Developed by <u>Thimothi Raju</u></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
